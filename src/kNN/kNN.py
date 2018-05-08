@@ -66,7 +66,7 @@ def autoNorm(dataSet):
 
 def datingClassTest():
     hoRatio = 0.50  # hold out 10%
-    datingDataMat, datingLabels = file2matrix('C:/Users/sunyi/Desktop/work/study/ai/Ch02/datingTestSet2.txt')  # load data setfrom file
+    datingDataMat, datingLabels = file2matrix('data/datingTestSet2.txt')  # load data setfrom file
     normMat, ranges, minVals = autoNorm(datingDataMat)
     m = normMat.shape[0]
     numTestVecs = int(m * hoRatio)
@@ -91,7 +91,7 @@ def img2vector(filename):
 
 def handwritingClassTest():
     hwLabels = []
-    trainingFileList = listdir('trainingDigits')  # load the training set
+    trainingFileList = listdir('data/trainingDigits')  # load the training set
     m = len(trainingFileList)
     trainingMat = zeros((m, 1024))
     for i in range(m):
@@ -99,15 +99,15 @@ def handwritingClassTest():
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
         hwLabels.append(classNumStr)
-        trainingMat[i, :] = img2vector('trainingDigits/%s' % fileNameStr)
-    testFileList = listdir('testDigits')  # iterate through the test set
+        trainingMat[i, :] = img2vector('data/trainingDigits/%s' % fileNameStr)
+    testFileList = listdir('data/testDigits')  # iterate through the test set
     errorCount = 0.0
     mTest = len(testFileList)
     for i in range(mTest):
         fileNameStr = testFileList[i]
         fileStr = fileNameStr.split('.')[0]  # take off .txt
         classNumStr = int(fileStr.split('_')[0])
-        vectorUnderTest = img2vector('testDigits/%s' % fileNameStr)
+        vectorUnderTest = img2vector('data/testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
         print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
         if (classifierResult != classNumStr): errorCount += 1.0
@@ -115,4 +115,4 @@ def handwritingClassTest():
     print("\nthe total error rate is: %f" % (errorCount / float(mTest)))
 
 if __name__ == '__main__':
-    datingClassTest()
+    handwritingClassTest()
