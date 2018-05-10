@@ -63,13 +63,15 @@ def create_tree(dataset, labels):
         return majority_count(class_list)
     best_feature_loc = choose_best_feature_to_split(dataset=dataset)
     best_feature_label = labels[best_feature_loc]
-    mytree = {best_feature_label:{}}
-    del(labels[best_feature_loc])
+    mytree = {best_feature_label: {}}
+    del (labels[best_feature_loc])
     feature_values = set([sample[best_feature_loc] for sample in dataset])
     for value in feature_values:
         sublabels = labels[:]
-        mytree[best_feature_label][value] = create_tree(dataset=split_dataset(dataset=dataset,loc = best_feature_loc,value=value),labels=sublabels)
+        mytree[best_feature_label][value] = create_tree(
+            dataset=split_dataset(dataset=dataset, loc=best_feature_loc, value=value), labels=sublabels)
     return mytree
+
 
 if __name__ == '__main__':
     dataset = [[1, 1, 'yes'],
@@ -81,4 +83,4 @@ if __name__ == '__main__':
     # print(split_dataset(dataset=dataset,loc=0,value=1))
     # print(get_entropy(dataset=dataset))
     # print(choose_best_feature_to_split(dataset=dataset))
-    print(create_tree(dataset=dataset,labels=labels))
+    print(create_tree(dataset=dataset, labels=labels))
