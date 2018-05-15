@@ -35,7 +35,6 @@ def get_tree_depth(mytree):
         if this_depth > max_depth: max_depth = this_depth
     return max_depth
 
-
 def plot_mid_text(cntr_pt, parent_pt, txt_str):
     xmid = (parent_pt[0] - cntr_pt[0]) / 2 + cntr_pt[0]
     ymid = (parent_pt[1] - cntr_pt[1]) / 2 + cntr_pt[1]
